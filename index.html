@@ -3,56 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste 3D Definitivo</title>
+    <title>Experiência RA</title>
     
     <script type="module" src="https://unpkg.com/@google/model-viewer@1.12.0/dist/model-viewer.min.js"></script>
 
     <style>
         body {
             margin: 0;
-            padding: 20px;
-            font-family: sans-serif;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
             background-color: #121212;
-            color: white;
+            color: #ffffff;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            height: 100vh;
         }
 
-        .caixa-aviso {
-            background-color: #1e1e1e;
-            padding: 15px;
-            border-radius: 8px;
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 16px;
             text-align: center;
-            max-width: 400px;
-            margin-bottom: 20px;
-            border: 1px solid #333;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            border: 1px solid #2d2d2d;
         }
 
-        /* O tamanho do visualizador precisa ser grande para o botão aparecer */
-        model-viewer {
+        h2 {
+            margin-top: 0;
+            color: #00d2ff;
+        }
+
+        p {
+            color: #b3b3b3;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .btn-iniciar {
+            background-color: #00d2ff;
+            color: #121212;
+            font-weight: bold;
+            font-size: 16px;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 30px;
+            cursor: pointer;
             width: 100%;
-            max-width: 400px;
-            height: 400px;
-            background-color: #222;
-            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+            transition: background-color 0.2s;
+        }
+
+        .btn-iniciar:active {
+            background-color: #00b4db;
+        }
+
+        /* Área secreta onde o objeto vai nascer e sumir rapidamente */
+        #palco-invisivel {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0.01;
+            overflow: hidden;
         }
     </style>
 </head>
 <body>
 
-    <div class="caixa-aviso">
-        <h3>⚠️ Instruções Importantes</h3>
-        <p>Gire o astronauta abaixo com o dedo para testar. Para abrir a câmera, clique no <strong>botão flutuante redondo</strong> que vai aparecer bem no meio ou no canto do objeto 3D.</p>
+    <div class="container">
+        <h2>Portal de Realidade Aumentada</h2>
+        <p>Ao clicar no botão abaixo, o sistema ativará a câmera do seu celular para projetar o objeto 3D diretamente no seu ambiente físico.</p>
+        
+        <button class="btn-iniciar" onclick="dispararRA_Direto()">
+          🚀 Iniciar Experiência AR
+        </button>
     </div>
 
-    <model-viewer 
-      src="https://drive.google.com/uc?export=download&id=1mBbaXkmnrDfEFl-8CvV3RYexDQI9UXJD" 
-      ar 
-      ar-modes="webxr scene-viewer quick-look" 
-      camera-controls 
-      auto-rotate>
-    </model-viewer>
+    <div id="palco-invisivel"></div>
+
+    <script>
+        function dispararRA_Direto() {
+            const palco = document.getElementById('palco-invisivel');
+            
+            // Se já tiver um modelo ali, remove para não acumular
+            palco.innerHTML = '';
+
+            // 1. Criamos o elemento do Google do zero na memória
+            const mv = document.createElement('model-viewer');
+            
+            // 2. Configuramos as propriedades dele (Troque o src pelo seu link quando quiser)
+            mv.setAttribute('src', 'https://modelviewer.dev/shared-assets/models/Astronaut.glb');
+            mv.setAttribute('ar', '');
+            mv.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
+            
+            // 3. Jogamos ele no palco invisível
+            palco.appendChild(mv);
+
+            // 4. O "pulo do gato": assim que o elemento nasce, damos a ordem para abrir a câmera imediatamente
+            mv.addEventListener('load', () => {
+                setTimeout(() => {
+                    mv.activateAR();
+                }, 100); // Um微 milissegundo apenas para o celular respirar
+            });
+        }
+    </script>
 
 </body>
 </html>
