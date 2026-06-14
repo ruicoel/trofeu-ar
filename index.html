@@ -3,39 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Troféu em Realidade Aumentada</title>
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+    <title>Projeto 3D - Tela de Início</title>
+    
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
+
     <style>
-        body { margin: 0; padding: 0; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; background-color: #f0f0f0; }
-        model-viewer { width: 100%; height: 100%; }
-#ar-button { 
-    background-color: #4285F4; 
-    color: white; 
-    border: none; 
-    border-radius: 8px; 
-    padding: 18px 36px; 
-    position: absolute; 
-    bottom: 250px;             
-    left: 50%; 
-    transform: translateX(-50%); 
-    font-size: 20px; 
-    font-weight: bold; 
-    z-index: 9999; 
-}    </style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 450px;
+            background: #1e1e1e;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #00d2ff;
+        }
+
+        p {
+            color: #b3b3b3;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        /* Estilo do visualizador do Google */
+        model-viewer {
+            width: 100%;
+            height: 350px;
+            background-color: #252525;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* O botão personalizado de aviso/instrução */
+        .btn-aviso-ar {
+            background-color: #00d2ff;
+            color: #121212;
+            font-weight: bold;
+            font-size: 15px;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 210, 255, 0.3);
+            transition: transform 0.2s, background-color 0.2s;
+            
+            /* Centraliza o botão no meio da tela do 3D */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .btn-aviso-ar:active {
+            transform: translate(-50%, -50%) scale(0.95);
+            background-color: #00b4db;
+        }
+
+        .instrucoes-lista {
+            text-align: left;
+            font-size: 13px;
+            color: #a0a0a0;
+            margin-top: 20px;
+            padding-left: 20px;
+        }
+    </style>
 </head>
 <body>
 
-    <model-viewer 
+    <div class="container">
+        <h2>Experiência de Realidade Aumentada</h2>
+        <p>Você encontrou um objeto virtual gerado por Inteligência Artificial! Leia as instruções abaixo antes de projetá-lo no seu ambiente.</p>
+
+        <model-viewer 
         src="https://drive.google.com/uc?export=download&id=1mBbaXkmnrDfEFl-8CvV3RYexDQI9UXJD"
-        ar 
-        ar-modes="scene-viewer webxr" 
-        camera-controls 
-        shadow-intensity="1" 
-        auto-rotate>
-        
-        <button slot="ar-button" id="ar-button">
-            Ver no seu espaço 🏆
-        </button>
-</model-viewer>
+          ar 
+          ar-modes="webxr scene-viewer quick-look" 
+          camera-controls 
+          shadow-intensity="1"
+          reveal="manual"
+          alt="Modelo 3D Interativo">
+          
+          <button slot="ar-button" class="btn-aviso-ar">
+            🔍 Iniciar Realidade Aumentada
+          </button>
+          
+        </model-viewer>
+
+        <ul class="instrucoes-lista">
+            <li>Aponte a câmera do celular para o chão ou uma mesa reta.</li>
+            <li>Mova o celular em círculos devagar para mapear o espaço.</li>
+            <li>Use dois dedos na tela para girar ou mudar o tamanho do objeto.</li>
+            <li>E veja por que o rui não pode atender telefone nem responder zap durante suas férias...</li>
+        </ul>
+    </div>
+
 </body>
 </html>
+
+        
