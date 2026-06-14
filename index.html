@@ -3,123 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto 3D - Realidade Aumentada</title>
+    <title>Teste 3D Definitivo</title>
     
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer@1.12.0/dist/model-viewer.min.js"></script>
 
     <style>
         body {
             margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            font-family: sans-serif;
             background-color: #121212;
-            color: #ffffff;
+            color: white;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
         }
 
-        .container {
-            width: 90%;
-            max-width: 450px;
-            background: #1e1e1e;
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        .caixa-aviso {
+            background-color: #1e1e1e;
+            padding: 15px;
+            border-radius: 8px;
             text-align: center;
-            box-sizing: border-box;
+            max-width: 400px;
+            margin-bottom: 20px;
+            border: 1px solid #333;
         }
 
-        h2 {
-            margin-top: 0;
-            color: #00d2ff;
-        }
-
-        p {
-            color: #b3b3b3;
-            font-size: 14px;
-            line-height: 1.5;
-            margin-bottom: 25px;
-        }
-
-        .btn-aviso-ar {
-            background-color: #00d2ff;
-            color: #121212;
-            font-weight: bold;
-            font-size: 16px;
-            border: none;
-            padding: 16px 32px;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 210, 255, 0.3);
-            margin: 20px 0;
-            width: 100%;
-        }
-
-        .instrucoes-lista {
-            text-align: left;
-            font-size: 13px;
-            color: #a0a0a0;
-            margin-top: 20px;
-            padding-left: 20px;
-        }
-
-        /* O visualizador 3D começa completamente escondido usando display: none */
-        #container-3d {
-            display: none;
-            width: 100%;
-        }
-
+        /* O tamanho do visualizador precisa ser grande para o botão aparecer */
         model-viewer {
             width: 100%;
+            max-width: 400px;
             height: 400px;
-            background-color: #252525;
-            border-radius: 12px;
+            background-color: #222;
+            border-radius: 8px;
         }
     </style>
 </head>
 <body>
 
-    <div id="tela-aviso" class="container">
-        <h2>Experiência de Realidade Aumentada</h2>
-        <p>Você encontrou um objeto virtual! Leia as instruções abaixo antes de projetá-lo no seu ambiente físico.</p>
-
-        <ul class="instrucoes-lista">
-            <li>Aponte a câmera do celular para o chão ou uma mesa reta.</li>
-            <li>Mova o celular em círculos devagar para mapear o espaço.</li>
-            <li>Use dois dedos na tela para girar ou mudar o tamanho do objeto.</li>
-        </ul>
-
-        <button class="btn-aviso-ar" onclick="mostrar3D()">
-          Prosseguir para o Modelo 3D
-        </button>
+    <div class="caixa-aviso">
+        <h3>⚠️ Instruções Importantes</h3>
+        <p>Gire o astronauta abaixo com o dedo para testar. Para abrir a câmera, clique no <strong>botão flutuante redondo</strong> que vai aparecer bem no meio ou no canto do objeto 3D.</p>
     </div>
 
-    <div id="container-3d" class="container">
-        <h2>Visualizador Interativo</h2>
-        <p>Gire o objeto com o dedo ou clique no botão flutuante para abrir a câmera em Realidade Aumentada.</p>
-        
-        <model-viewer 
-          src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
-          ar 
-          ar-modes="webxr scene-viewer quick-look"
-          camera-controls 
-          shadow-intensity="1">
-        </model-viewer>
-    </div>
-
-    <script>
-        function mostrar3D() {
-            // Esconde a tela de aviso
-            document.getElementById('tela-aviso').style.display = 'none';
-            // Mostra a tela com o modelo 3D carregado de forma limpa e visível
-            document.getElementById('container-3d').style.display = 'block';
-        }
-    </script>
+    <model-viewer 
+      src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+      ar 
+      ar-modes="webxr scene-viewer quick-look" 
+      camera-controls 
+      auto-rotate>
+    </model-viewer>
 
 </body>
 </html>
-
-   
