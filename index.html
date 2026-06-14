@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Troféu em Realidade Aumentada</title>
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
     <style>
         body { margin: 0; padding: 0; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; background-color: #f0f0f0; }
         model-viewer { width: 100%; height: 100%; }
@@ -31,14 +31,15 @@
 <body>
 
     <model-viewer 
-        src="3d-metal-trophy.glb" 
-        ar 
-        ar-modes="scene-viewer" 
-        camera-controls 
-        shadow-intensity="1" 
-        auto-rotate>
-        
-        <button slot="ar-button" id="ar-button">
+<model-viewer 
+    src="3d-metal-trophy.glb" 
+    ar 
+    ar-modes="scene-viewer" 
+    camera-controls 
+    shadow-intensity="1" 
+    auto-rotate>
+    
+    <button slot="ar-button" id="ar-button">
             Ver no seu espaço 🏆
         </button>
         
