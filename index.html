@@ -28,12 +28,14 @@
             z-index: 10;
         }
 
+        /* Ajuste do tamanho da sua imagem para caber bem na tela */
         .imagem-instrucao {
             width: 100%;
-            max-width: 250px;
+            max-width: 300px;
             height: auto;
             margin-bottom: 25px;
             border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
 
         p {
@@ -53,24 +55,29 @@
             border-radius: 30px;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0, 210, 255, 0.4);
+            transition: 0.2s;
         }
 
-        /* O segredo: o model-viewer fica invisível mas presente na tela */
+        .btn-texto:active {
+            transform: scale(0.95);
+        }
+
+        /* O modelo 3D fica escondido na tela, esperando o clique */
         model-viewer {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0; /* Totalmente invisível */
-            pointer-events: none; /* Não atrapalha o clique no botão */
+            opacity: 0; 
+            pointer-events: none; 
         }
     </style>
 </head>
 <body>
 
     <div class="tela-texto">
-        <img class="imagem-instrucao" src="https://drive.google.com/uc?id=12OYAyXlvXsVVppJLHU4sJNkrtvHTlT69" alt="Homem apontando o celular">
+        <img class="imagem-instrucao" src="1.jpg" alt="Instruções de como apontar a câmera">
 
         <p>Veja online o que o rui está fazendo nesse momento em suas ferias.</p>
         
@@ -92,13 +99,13 @@
             const mv = document.querySelector('#meu-modelo');
             const btn = document.querySelector('#botao-ar');
 
-            // Muda o texto do botão apenas para dar um feedback enquanto o sistema abre
+            // Feedback visual no botão
             btn.innerText = "Iniciando câmera...";
 
-            // Comando que dispara a Realidade Aumentada imediatamente
+            // Dispara a câmera AR diretamente
             mv.activateAR();
 
-            // Volta o texto original depois de 3 segundos
+            // Retorna o botão ao normal após um tempo
             setTimeout(() => {
                 btn.innerText = "Para isso:";
             }, 3000);
