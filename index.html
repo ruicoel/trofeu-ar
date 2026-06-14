@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experiência RA</title>
+    <title>Experiência RA Segura</title>
     
     <script type="module" src="https://unpkg.com/@google/model-viewer@1.12.0/dist/model-viewer.min.js"></script>
 
@@ -20,7 +20,8 @@
             height: 100vh;
         }
 
-        .container {
+        /* TELA 1: APENAS O SEU AVISO */
+        .container-aviso {
             width: 90%;
             max-width: 400px;
             background: #1e1e1e;
@@ -43,7 +44,7 @@
             margin-bottom: 30px;
         }
 
-        .btn-iniciar {
+        .btn-prosseguir {
             background-color: #00d2ff;
             color: #121212;
             font-weight: bold;
@@ -54,62 +55,35 @@
             cursor: pointer;
             width: 100%;
             box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
-            transition: background-color 0.2s;
         }
 
-        .btn-iniciar:active {
-            background-color: #00b4db;
+        /* TELA 2: POP-UP QUE APARECE DEPOIS DO CLIQUE (MODAL) */
+        .modal-3d {
+            display: none; /* Começa escondido */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(18, 18, 18, 0.95);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        /* Área secreta onde o objeto vai nascer e sumir rapidamente */
-        #palco-invisivel {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            opacity: 0.01;
-            overflow: hidden;
+        /* Estilo do visualizador dentro do Pop-up */
+        model-viewer {
+            width: 100%;
+            max-width: 450px;
+            height: 70vh;
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            border: 1px solid #333;
         }
-    </style>
-</head>
-<body>
 
-    <div class="container">
-        <h2>Portal de Realidade Aumentada</h2>
-        <p>Ao clicar no botão abaixo, o sistema ativará a câmera do seu celular para projetar o objeto 3D diretamente no seu ambiente físico.</p>
-        
-        <button class="btn-iniciar" onclick="dispararRA_Direto()">
-          🚀 Iniciar Experiência AR
-        </button>
-    </div>
-
-    <div id="palco-invisivel"></div>
-
-    <script>
-        function dispararRA_Direto() {
-            const palco = document.getElementById('palco-invisivel');
-            
-            // Se já tiver um modelo ali, remove para não acumular
-            palco.innerHTML = '';
-
-            // 1. Criamos o elemento do Google do zero na memória
-            const mv = document.createElement('model-viewer');
-            
-            // 2. Configuramos as propriedades dele (Troque o src pelo seu link quando quiser)
-            mv.setAttribute('src', 'https://modelviewer.dev/shared-assets/models/Astronaut.glb');
-            mv.setAttribute('ar', '');
-            mv.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
-            
-            // 3. Jogamos ele no palco invisível
-            palco.appendChild(mv);
-
-            // 4. O "pulo do gato": assim que o elemento nasce, damos a ordem para abrir a câmera imediatamente
-            mv.addEventListener('load', () => {
-                setTimeout(() => {
-                    mv.activateAR();
-                }, 100); // Um微 milissegundo apenas para o celular respirar
-            });
-        }
-    </script>
-
-</body>
-</html>
+        .texto-modal {
+            text-align: center;
+            margin-bottom: 1
