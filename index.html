@@ -86,4 +86,46 @@
 
         .texto-modal {
             text-align: center;
-            margin-bottom: 1
+            margin-bottom: 15px;
+            font-size: 15px;
+            color: #00d2ff;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="tela-inicial" class="container-aviso">
+        <h2>Aviso de Inicialização</h2>
+        <p>Para interagir com este objeto em Realidade Aumentada, certifique-se de estar em um ambiente bem iluminado e com espaço livre no chão ou em uma mesa.</p>
+        
+        <button class="btn-prosseguir" onclick="abrirPlayer3D()">
+          Confirmar e Visualizar Objeto
+        </button>
+    </div>
+
+    <div id="janela-modal" class="modal-3d">
+        <div class="texto-modal">
+            Touch no objeto para girar ou clique no botão de cubinho para abrir a câmera:
+        </div>
+        
+        <model-viewer 
+          src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+          ar 
+          ar-modes="webxr scene-viewer quick-look" 
+          camera-controls 
+          auto-rotate>
+        </model-viewer>
+    </div>
+
+    <script>
+        function abrirPlayer3D() {
+            // Esconde o aviso inicial
+            document.getElementById('tela-inicial').style.display = 'none';
+            
+            // Ativa a tela do modelo 3D usando flex para centralizar tudo
+            document.getElementById('janela-modal').style.display = 'flex';
+        }
+    </script>
+
+</body>
+</html>
