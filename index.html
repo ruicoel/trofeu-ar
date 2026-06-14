@@ -12,29 +12,28 @@
             margin: 0;
             padding: 0;
             font-family: sans-serif;
-            background-color: #121212; /* Fundo escuro para destacar as letras */
+            background-color: #121212;
             color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
 
-        /* Tela 100% limpa: apenas o texto centralizado e o botão */
         .tela-texto {
             width: 90%;
             max-width: 400px;
             text-align: center;
+            z-index: 10;
         }
 
-        /* Estilo da imagem adicionada */
         .imagem-instrucao {
             width: 100%;
             max-width: 250px;
             height: auto;
             margin-bottom: 25px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         p {
@@ -42,10 +41,8 @@
             color: #ffffff;
             line-height: 1.6;
             margin-bottom: 40px;
-            font-weight: normal;
         }
 
-        /* Botão simples e direto */
         .btn-texto {
             background-color: #00d2ff;
             color: #121212;
@@ -55,75 +52,58 @@
             padding: 16px 32px;
             border-radius: 30px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.4);
         }
 
-        /* Segunda tela (pop-up) onde o modelo carrega */
-        .modal-3d {
-            display: none;
-            position: fixed;
+        /* O segredo: o model-viewer fica invisível mas presente na tela */
+        model-viewer {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #121212;
-            z-index: 999;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        model-viewer {
-            width: 100%;
-            max-width: 450px;
-            height: 80vh;
-            background-color: #121212;
-        }
-
-        .texto-ajuda {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 16px;
-            color: #00d2ff;
+            opacity: 0; /* Totalmente invisível */
+            pointer-events: none; /* Não atrapalha o clique no botão */
         }
     </style>
 </head>
 <body>
 
-    <div id="tela-inicial" class="tela-texto">
-        <img class="imagem-instrucao" src="https://drive.google.com/uc?export=view&id=12OYAyXlvXsVVppJLHU4sJNkrtvHTlT69" alt="Homem apontando o celular">
+    <div class="tela-texto">
+        <img class="imagem-instrucao" src="https://drive.google.com/uc?id=12OYAyXlvXsVVppJLHU4sJNkrtvHTlT69" alt="Homem apontando o celular">
 
         <p>Veja online o que o rui está fazendo nesse momento em suas ferias.</p>
         
-        <button class="btn-texto" onclick="abrirPlayer3D()">
+        <button id="botao-ar" class="btn-texto" onclick="ativarAR_Direto()">
          Para isso:
         </button>
     </div>
 
-    <div id="janela-modal" class="modal-3d">
-        <div class="texto-ajuda">
-            Clique no ícone de cubo para abrir a câmera:
-        </div>
-        
-        <model-viewer 
-          src="https://drive.google.com/uc?export=download&id=1mBbaXkmnrDfEFl-8CvV3RYexDQI9UXJD"  
-          ar 
-          ar-modes="scene-viewer quick-look" 
-          camera-controls 
-          auto-rotate>
-        </model-viewer>
-    </div>
+    <model-viewer 
+      id="meu-modelo"
+      src="https://drive.google.com/uc?export=download&id=1mBbaXkmnrDfEFl-8CvV3RYexDQI9UXJD" 
+      ar 
+      ar-modes="scene-viewer quick-look" 
+      camera-controls>
+    </model-viewer>
 
     <script>
-        function abrirPlayer3D() {
-            document.getElementById('tela-inicial').style.display = 'none';
-            document.getElementById('janela-modal').style.display = 'flex';
+        function ativarAR_Direto() {
+            const mv = document.querySelector('#meu-modelo');
+            const btn = document.querySelector('#botao-ar');
+
+            // Muda o texto do botão apenas para dar um feedback enquanto o sistema abre
+            btn.innerText = "Iniciando câmera...";
+
+            // Comando que dispara a Realidade Aumentada imediatamente
+            mv.activateAR();
+
+            // Volta o texto original depois de 3 segundos
+            setTimeout(() => {
+                btn.innerText = "Para isso:";
+            }, 3000);
         }
     </script>
 
 </body>
 </html>
-
-   
