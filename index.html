@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experiência RA Segura</title>
+    <title>Férias do Rui</title>
     
     <script type="module" src="https://unpkg.com/@google/model-viewer@1.12.0/dist/model-viewer.min.js"></script>
 
@@ -11,8 +11,8 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #121212;
+            font-family: sans-serif;
+            background-color: #121212; /* Fundo escuro para destacar as letras */
             color: #ffffff;
             display: flex;
             justify-content: center;
@@ -20,31 +20,23 @@
             height: 100vh;
         }
 
-        /* TELA 1: APENAS O SEU AVISO */
-        .container-aviso {
+        /* Tela 100% limpa: apenas o texto centralizado e o botão */
+        .tela-texto {
             width: 90%;
             max-width: 400px;
-            background: #1e1e1e;
-            padding: 30px;
-            border-radius: 16px;
             text-align: center;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-            border: 1px solid #2d2d2d;
-        }
-
-        h2 {
-            margin-top: 0;
-            color: #00d2ff;
         }
 
         p {
-            color: #b3b3b3;
-            font-size: 14px;
+            font-size: 18px;
+            color: #ffffff;
             line-height: 1.6;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            font-weight: normal;
         }
 
-        .btn-prosseguir {
+        /* Botão simples e direto */
+        .btn-texto {
             background-color: #00d2ff;
             color: #121212;
             font-weight: bold;
@@ -53,19 +45,18 @@
             padding: 16px 32px;
             border-radius: 30px;
             cursor: pointer;
-            width: 100%;
-            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.2);
         }
 
-        /* TELA 2: POP-UP QUE APARECE DEPOIS DO CLIQUE (MODAL) */
+        /* Segunda tela (pop-up) onde o modelo carrega */
         .modal-3d {
-            display: none; /* Começa escondido */
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(18, 18, 18, 0.95);
+            background-color: #121212;
             z-index: 999;
             flex-direction: column;
             justify-content: center;
@@ -74,55 +65,48 @@
             box-sizing: border-box;
         }
 
-        /* Estilo do visualizador dentro do Pop-up */
         model-viewer {
             width: 100%;
             max-width: 450px;
-            height: 70vh;
-            background-color: #1e1e1e;
-            border-radius: 12px;
-            border: 1px solid #333;
+            height: 80vh;
+            background-color: #121212;
         }
 
-        .texto-modal {
+        .texto-ajuda {
             text-align: center;
-            margin-bottom: 15px;
-            font-size: 15px;
+            margin-bottom: 20px;
+            font-size: 16px;
             color: #00d2ff;
         }
     </style>
 </head>
 <body>
 
-    <div id="tela-inicial" class="container-aviso">
-        <h2>Aviso de Inicialização</h2>
-        <p>Para interagir com este objeto em Realidade Aumentada, certifique-se de estar em um ambiente bem iluminado e com espaço livre no chão ou em uma mesa.</p>
+    <div id="tela-inicial" class="tela-texto">
+        <p>Veja online o que o rui está fazendo nesse momento em suas ferias.</p>
         
-        <button class="btn-prosseguir" onclick="abrirPlayer3D()">
-          Confirmar e Visualizar Objeto
+        <button class="btn-texto" onclick="abrirPlayer3D()">
+         Para isso:
         </button>
     </div>
 
     <div id="janela-modal" class="modal-3d">
-        <div class="texto-modal">
-            Touch no objeto para girar ou clique no botão de cubinho para abrir a câmera:
+        <div class="texto-ajuda">
+            Clique no ícone de cubo para abrir a câmera:
         </div>
         
-       <model-viewer 
-  src="https://drive.google.com/uc?export=download&id=1mBbaXkmnrDfEFl-8CvV3RYexDQI9UXJD" 
-  ar 
-  ar-modes="scene-viewer quick-look" 
-  camera-controls 
-  auto-rotate>
-</model-viewer>
+        <model-viewer 
+          src="https://drive.google.com/uc?export=download&id=1mBbaXkmnrDfEFl-8CvV3RYexDQI9UXJD" 
+          ar 
+          ar-modes="scene-viewer quick-look" 
+          camera-controls 
+          auto-rotate>
+        </model-viewer>
     </div>
 
     <script>
         function abrirPlayer3D() {
-            // Esconde o aviso inicial
             document.getElementById('tela-inicial').style.display = 'none';
-            
-            // Ativa a tela do modelo 3D usando flex para centralizar tudo
             document.getElementById('janela-modal').style.display = 'flex';
         }
     </script>
