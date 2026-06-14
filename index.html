@@ -42,39 +42,24 @@
             margin-bottom: 25px;
         }
 
-        /* Estilo do visualizador do Google */
-        model-viewer {
-            width: 100%;
-            height: 350px;
-            background-color: #252525;
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* O botão personalizado de aviso/instrução */
+        /* O botão de aviso agora fica fora do model-viewer para não travar */
         .btn-aviso-ar {
             background-color: #00d2ff;
             color: #121212;
             font-weight: bold;
-            font-size: 15px;
+            font-size: 16px;
             border: none;
-            padding: 14px 28px;
+            padding: 16px 32px;
             border-radius: 30px;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0, 210, 255, 0.3);
             transition: transform 0.2s, background-color 0.2s;
-            
-            /* Centraliza o botão no meio da tela do 3D */
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
+            margin: 20px 0;
+            width: 100%;
         }
 
         .btn-aviso-ar:active {
-            transform: translate(-50%, -50%) scale(0.95);
+            transform: scale(0.98);
             background-color: #00b4db;
         }
 
@@ -85,38 +70,53 @@
             margin-top: 20px;
             padding-left: 20px;
         }
+
+        /* Deixamos o model-viewer invisível na tela inicial para focar no aviso */
+        #meu-modelo {
+            width: 1px;
+            height: 1px;
+            visibility: hidden;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h2>Experiência de Realidade Aumentada</h2>
-        <p>Você encontrou um objeto virtual gerado por Inteligência Artificial! Leia as instruções abaixo antes de projetá-lo no seu ambiente.</p>
-
-        <model-viewer 
-        src="https://drive.google.com/uc?export=download&id=1mBbaXkmnrDfEFl-8CvV3RYexDQI9UXJD"
-          ar 
-          ar-modes="webxr scene-viewer quick-look" 
-          camera-controls 
-          shadow-intensity="1"
-          reveal="manual"
-          alt="Modelo 3D Interativo">
-          
-<button slot="ar-button" class="btn-aviso-ar" onclick="this.parentElement.activateAR()">
-  🔍 Iniciar Realidade Aumentada
-</button>
-          
-        </model-viewer>
+        <p>Você verá em realidade aumentada o que o rui esta fazendo em tempo real em suas férias </p>
 
         <ul class="instrucoes-lista">
             <li>Aponte a câmera do celular para o chão ou uma mesa reta.</li>
             <li>Mova o celular em círculos devagar para mapear o espaço.</li>
             <li>Use dois dedos na tela para girar ou mudar o tamanho do objeto.</li>
-            <li>E veja por que o rui não pode atender telefone nem responder zap durante suas férias...</li>
         </ul>
+
+        <button class="btn-aviso-ar" onclick="dispararRA()">
+          🔍 Abrir Câmera e Iniciar RA
+        </button>
+
+        <model-viewer 
+          id="meu-modelo"
+        src="https://drive.google.com/uc?export=download&id=1mBbaXkmnrDfEFl-8CvV3RYexDQI9UXJD"
+          ar 
+          ar-modes="webxr scene-viewer quick-look">
+        </model-viewer>
     </div>
+
+    <script>
+        function dispararRA() {
+            const modelViewer = document.querySelector('#meu-modelo');
+            
+            // Verifica se o aparelho suporta Realidade Aumentada antes de abrir
+            if (modelViewer.canActivateAR) {
+                modelViewer.activateAR();
+            } else {
+                alert("Seu navegador ou dispositivo não suporta Realidade Aumentada nativa, ou o arquivo 3D ainda está carregando.");
+            }
+        }
+    </script>
 
 </body>
 </html>
 
-        
+          
