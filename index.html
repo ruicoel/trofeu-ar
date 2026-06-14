@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto 3D - Tela de Início</title>
+    <title>Projeto 3D - Realidade Aumentada</title>
     
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
 
@@ -18,6 +18,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
 
         .container {
@@ -28,6 +29,7 @@
             border-radius: 16px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.3);
             text-align: center;
+            box-sizing: border-box;
         }
 
         h2 {
@@ -42,7 +44,6 @@
             margin-bottom: 25px;
         }
 
-        /* O botão de aviso agora fica fora do model-viewer para não travar */
         .btn-aviso-ar {
             background-color: #00d2ff;
             color: #121212;
@@ -53,14 +54,8 @@
             border-radius: 30px;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0, 210, 255, 0.3);
-            transition: transform 0.2s, background-color 0.2s;
             margin: 20px 0;
             width: 100%;
-        }
-
-        .btn-aviso-ar:active {
-            transform: scale(0.98);
-            background-color: #00b4db;
         }
 
         .instrucoes-lista {
@@ -71,19 +66,25 @@
             padding-left: 20px;
         }
 
-        /* Deixamos o model-viewer invisível na tela inicial para focar no aviso */
-        #meu-modelo {
-            width: 1px;
-            height: 1px;
-            visibility: hidden;
+        /* O visualizador 3D começa completamente escondido usando display: none */
+        #container-3d {
+            display: none;
+            width: 100%;
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 400px;
+            background-color: #252525;
+            border-radius: 12px;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div id="tela-aviso" class="container">
         <h2>Experiência de Realidade Aumentada</h2>
-        <p>Você verá em realidade aumentada o que o rui esta fazendo em tempo real em suas férias </p>
+        <p>Você encontrou um objeto virtual! Leia as instruções abaixo antes de projetá-lo no seu ambiente físico.</p>
 
         <ul class="instrucoes-lista">
             <li>Aponte a câmera do celular para o chão ou uma mesa reta.</li>
@@ -91,32 +92,34 @@
             <li>Use dois dedos na tela para girar ou mudar o tamanho do objeto.</li>
         </ul>
 
-        <button class="btn-aviso-ar" onclick="dispararRA()">
-          🔍 Abrir Câmera e Iniciar RA
+        <button class="btn-aviso-ar" onclick="mostrar3D()">
+          Prosseguir para o Modelo 3D
         </button>
+    </div>
 
+    <div id="container-3d" class="container">
+        <h2>Visualizador Interativo</h2>
+        <p>Gire o objeto com o dedo ou clique no botão flutuante para abrir a câmera em Realidade Aumentada.</p>
+        
         <model-viewer 
-          id="meu-modelo"
-        src="https://drive.google.com/uc?export=download&id=1mBbaXkmnrDfEFl-8CvV3RYexDQI9UXJD"
+          src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
           ar 
-          ar-modes="webxr scene-viewer quick-look">
+          ar-modes="webxr scene-viewer quick-look"
+          camera-controls 
+          shadow-intensity="1">
         </model-viewer>
     </div>
 
     <script>
-        function dispararRA() {
-            const modelViewer = document.querySelector('#meu-modelo');
-            
-            // Verifica se o aparelho suporta Realidade Aumentada antes de abrir
-            if (modelViewer.canActivateAR) {
-                modelViewer.activateAR();
-            } else {
-                alert("Seu navegador ou dispositivo não suporta Realidade Aumentada nativa, ou o arquivo 3D ainda está carregando.");
-            }
+        function mostrar3D() {
+            // Esconde a tela de aviso
+            document.getElementById('tela-aviso').style.display = 'none';
+            // Mostra a tela com o modelo 3D carregado de forma limpa e visível
+            document.getElementById('container-3d').style.display = 'block';
         }
     </script>
 
 </body>
 </html>
 
-          
+   
